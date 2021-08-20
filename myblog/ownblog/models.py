@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 # Create your models here.
 class Post(models.Model):
-    title= models.CharField(max_length=255)
+    title= models.CharField(max_length=100)
     header_img=models.ImageField(null= False, blank= False, upload_to="images/")
-    desc = models.CharField(max_length=500)
+    desc = models.CharField(max_length=150)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content= models.TextField()
     date= models.DateField(auto_now_add=True)

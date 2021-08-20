@@ -1,25 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content%}
+<link rel="stylesheet" type="text/css" href="/static/css/base.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div >
 
 
-<h1 style="text-align: center;">
+<h1 class="base_H1" >
     Blogs
 </h1>
 <div class="container">
     <div class=" slider " >
     {% for post in object_list %}
     
-        <div class="col" style="padding: 20px;">
-          <div class="card h-100">
-            <img src="{{post.header_img.url}}" class="card-img-left" alt="..." height="300px" width="320px">
+        <div class="col-card">
+          <div class="card">
+            <img src="{{post.header_img.url}}" class="card-img-left" alt="..." height="300px" >
             <div class="card-body">
-              <h5 class="card-title"><b>{{post.title}}</b></h5>
+              <h5 class="card-title"><b>{{post.title|slice:":20"}}</b></h5>
               <h6 class ="card-subtitle mb-2 text-muted">{{post.author}} | {{post.date}}</h6>
-              <p class="card-text">{{post.desc}} <span><a href="{% url 'blog' post.pk %}">Read More</a></span></p>
+              <p class="card-text">{{post.desc|slice:":50"}} <span><a href="{% url 'blog' post.pk %}">Read More</a></span></p>
             </div>
           </div>
         </div>
