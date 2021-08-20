@@ -1,12 +1,11 @@
-
+from django.conf.urls import url
 from django.urls import path
-#from . import views
-from .views import HomeViews, BlogViews,AddViews
+from . import views
 
 
 urlpatterns = [
-    path('', HomeViews.as_view() ,name ="home" ),
-    path('blog/<int:pk>',BlogViews.as_view(), name="blog"),
-    path('new/',AddViews.as_view(), name="new"),
+    path('', views.HomeViews, name ="home" ),
+    path('blog/<int:pk>',views.BlogViews, name="blog"),
+    path('new/',views.AddViews, name="new"),
     
 ]

@@ -1,7 +1,9 @@
+from django.forms import models
 from .forms import PostForm
 from .models import Post
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
+from . import forms
+from django.shortcuts import render, redirect
+
 
 
 
@@ -9,16 +11,28 @@ from django.views.generic import ListView, DetailView, CreateView
 #def home(request):
 #    return render(request , 'home.html', {})
 
-class HomeViews(ListView):
-    model = Post
-    template_name = 'home.html'
+def HomeViews(request):
+    posts= Post.objects.all()
+    context={
+        'Post_list': posts,
+    }
+    return render(request, "home.html", context)
 
-class BlogViews(DetailView):
-    model= Post
-    template_name = 'blog_details.html'
+def BlogViews(request, pk):
+    posts = Post.objects.get(pk=pk)
+    context ={
+        'post': posts,
+    }
+    return render(request, "blog_details.html", context)
 
-class AddViews(CreateView):
-    model = Post
-    form_class= PostForm
-    template_name= 'add_blog.html'
-    #fields = '__all__'
+def AddViews(request):
+    if request.method=='POST':
+        form= forms.PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            blog= form.save(commit=False)
+            blog.author = request.user
+            blog.save()
+            return redirect('home')
+    else:
+        form= forms.PostForm()
+    return render(request, 'add_blog.html',{'form':form})
